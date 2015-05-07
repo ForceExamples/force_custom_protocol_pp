@@ -11,12 +11,15 @@ class PingPongProtocol extends Protocol<PingPongPackage> {
   
   bool shouldDispatch(data) {
       // Test what is typical for this protocol
-      return data.toString().contains("ping") || data.toString().contains("pong");
+      return data.contains("PING") || data.contains("PONG");
   }
   
   PingPongPackage onConvert(data, {wsId: "-"}) {
-    PingPongPackage ppp = new PingPongPackage.fromJson(JSON.decode(data), wsId: wsId);
-    return ppp;
+    return new PingPongPackage.fromJson(JSON.decode(data), wsId: wsId);
+  }
+  
+  void sendPing() {
+    dispatcher.sendable.sendPackage(new PingPongPackage(PingPongPackage.PING));
   }
  
 }

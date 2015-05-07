@@ -10,21 +10,18 @@ part 'pingpong_protocol.dart';
 
 class PlayPingPong {
   
+  PingPongProtocol _pingPongProtocol;
   PingPongDispatcher _pingpongDispatcher;
   
-  SendablePackage sendablePackage;
-  
-  PlayPingPong(this.sendablePackage);
+  PlayPingPong();
   
   Protocol protocol() {
-    _pingpongDispatcher = new PingPongDispatcher(sendablePackage);
-    PingPongProtocol pingPongProtocol = new PingPongProtocol(_pingpongDispatcher);
-    return pingPongProtocol;
+    _pingpongDispatcher = new PingPongDispatcher();
+    _pingPongProtocol = new PingPongProtocol(_pingpongDispatcher);
+    return _pingPongProtocol;
   }
   
-  void sendPing() {
-    sendablePackage.sendPackage(new PingPongPackage(PingPongPackage.PING));
-  }
+  void sendPing() => _pingPongProtocol.sendPing();
   
   Stream get state_of_ping_pong => _pingpongDispatcher.state;
 

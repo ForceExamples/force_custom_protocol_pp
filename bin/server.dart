@@ -20,7 +20,7 @@ main() async {
   // Tell Force what the start page is!
   fs.server.static("/", "index.html");
   
-  PlayPingPong playPingPong = new PlayPingPong(fs);
+  PlayPingPong playPingPong = new PlayPingPong();
   fs.addProtocol(playPingPong.protocol());
   
   playPingPong.state_of_ping_pong.listen((state) {

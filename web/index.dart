@@ -6,21 +6,20 @@ ForceClient fc;
 PlayPingPong playPingPong;
 
 main() async {
-  fc = new ForceClient();
+  fc = new ForceClient(url:"localhost:4040");
   fc.connect();
   
   await fc.onConnected;
   
-  playPingPong = new PlayPingPong(fc);
+  playPingPong = new PlayPingPong();
   fc.addProtocol(playPingPong.protocol());
   
+  playPingPong.state_of_ping_pong.listen((state) {
+    querySelector("#list").appendHtml("<div>$state</div>");
+  });
+  
   querySelector("#btn")
-        ..text = "GO"
         ..onClick.listen(broadcast);
-    
-    fc.on("update", (fme, sender) {
-      querySelector("#list").appendHtml("<div>${fme.json["todo"]}</div>");
-    });
 }
 
 void  broadcast(MouseEvent event) {

@@ -22,9 +22,6 @@ void defineTests() {
       
       PlayPingPong playPingPong = new PlayPingPong();
       fs.addProtocol(playPingPong.protocol());
-           
-     
-
       
       PlayPingPong playPingPongClient = new PlayPingPong();
       // var client_state = await playPingPongClient.state_of_ping_pong.first;

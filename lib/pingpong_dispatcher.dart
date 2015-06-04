@@ -10,7 +10,11 @@ class PingPongDispatcher extends ProtocolDispatch<PingPongPackage> {
     if (ppp.state == PingPongPackage.PING) {
       sendable.sendPackage(new PingPongPackage(PingPongPackage.PONG));
     }
-    _controller.add(ppp.state);
+    if (ppp.state != null) {
+      _controller.add(ppp.state);
+    } else {
+      print ('ping pong stat is null');
+    }
   }
   
   Stream get state => _controller.stream;
